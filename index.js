@@ -15,7 +15,8 @@ app.use(express.json());
 // Use the CORS middleware
 app.use(cors({
     // origin: 'https://fullstack-ecomm-frontend-app.vercel.app', // Replace with the origin you want to allow
-    origin : "http://localhost:3000",
+    // origin : "http://localhost:3000",
+    origin : "https://real-estate-fullstack-frontend-app.vercel.app/",
     // allowedHeaders: 'Content-Type,Authorization'
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 }));
