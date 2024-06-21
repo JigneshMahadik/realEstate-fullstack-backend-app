@@ -53,15 +53,18 @@ const postProperty = async (req,res)=>{
             });
             
             const newInsertedProperty = await data.save();    
+            
+            res.json({
+                status : true,
+                message : "File uploaded successfully"
+            });
         }
         catch(error){
+            return res.json({
+                Error : error
+            })
             console.log(error);
         }
-
-        res.json({
-            status : true,
-            message : "File uploaded successfully"
-        });
     });    
 };
 

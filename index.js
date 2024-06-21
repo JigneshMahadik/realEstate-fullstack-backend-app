@@ -19,7 +19,7 @@ app.use(cors({
     origin : "https://real-estate-fullstack-frontend-app.vercel.app",
     methods : ["GET", "POST", "PUT", "DELETE"],
     credentials : true,
-    // allowedHeaders: 'Content-Type,Authorization'
+    allowedHeaders: 'Content-Type,Authorization',
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 }));
 
