@@ -23,12 +23,12 @@ const upload = multer({
 
 
 // Create a new post in DB.
-const postProperty = async (req,res)=>{
+const postProperty = (req,res)=>{
     // console.log("beds are",req.body.beds);
     upload(req,res,async(error)=>{
         if(error){
             res.json({
-                message : error
+                message : error,
             });
             return;
         }
@@ -60,10 +60,11 @@ const postProperty = async (req,res)=>{
             });
         }
         catch(error){
-            return res.json({
-                Error : error
-            })
-            console.log(error);
+            console.log("Error while inserting tha data !", error.message);
+            return res.status(500).json({
+                Error : error.message,
+                message : "Error while inserting the data"
+            });
         }
     });    
 };

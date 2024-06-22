@@ -8,7 +8,7 @@ const jwtSecretKey = "MY_JWT_SECRET_KEYECOMM123";
 const validateUser = async (req, res, next) => {
 
   const headers = req.headers;
-  const tokenFromHeaders = headers.authorization;
+  const tokenFromHeaders = headers.authorization.replace(/^Bearer\s+/, '');;
   /**
    * Points to be validated in token
    * 1. Token should be present
@@ -20,7 +20,7 @@ const validateUser = async (req, res, next) => {
   // 1
   if (!tokenFromHeaders) {
     return res.status(401).json({
-      msg: "Unauthenticated user",
+      msg: "Token is not provided !",
     });
   }
 
@@ -29,7 +29,7 @@ const validateUser = async (req, res, next) => {
     jwt.verify(tokenFromHeaders, jwtSecretKey);
   } catch (err) {
     return res.status(401).json({
-      msg: "Unauthenticated user",
+      msg: "Error : error while checking token with it's secret key !",
     });
   }
 
@@ -51,7 +51,7 @@ const validateUser = async (req, res, next) => {
   const User = await userModel.findById(userId);
   if (!User) {
     return res.status(401).json({
-      msg: "Unauthorized user",
+      msg: "Token provided by user is not valid !",
     });
   }
   req.user = User; // This  will be passed to other available middlewares in next sequence and api routes.

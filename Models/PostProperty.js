@@ -47,7 +47,7 @@ const propertySchema = new mongoose.Schema({
     },
     files : {
         type : [String],
-        required : false
+        required : false,
     },
     userId : {
         type : mongoose.Types.ObjectId,      //its a monggose's data type.
