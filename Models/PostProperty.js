@@ -41,6 +41,10 @@ const propertySchema = new mongoose.Schema({
         type : String,
         required : false
     },
+    area : {
+        type : Number,
+        // required : true
+    },
     other_details : {
         type : String,
         required : false
@@ -57,7 +61,31 @@ const propertySchema = new mongoose.Schema({
         type : String,
         default : "open",
         required : true
-    }
+    },
+    requests : [
+        {
+            message : {
+                type : String,
+            },
+            userId : {
+                type : mongoose.Types.ObjectId,
+                ref : "users"
+            },
+            first_name : {
+                type : String,
+            },
+            email : {
+                type : String
+            },
+            mobile_number : {
+                type : Number
+            },
+            date : {
+                type : String,
+                default : new Date()
+            }
+        }
+    ]
 },
 {
     timestamps : true

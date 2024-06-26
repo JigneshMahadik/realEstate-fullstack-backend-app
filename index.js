@@ -39,5 +39,5 @@ mongoose.connect("mongodb+srv://jignesh:dUaszhl26B0rpW0f@cluster0.s7hzif4.mongod
 .catch((error)=>{ console.log("Error while DB Connection !", error); })
 
 app.listen(10000,()=>{
-    console.log("Server is up and running on port : 8082");
+    console.log("Server is up and running on port : 10000");
 })

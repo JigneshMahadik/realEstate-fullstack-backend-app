@@ -10,4 +10,14 @@ router.delete("/deletePropertyByPropertyID", postPropertyControllers.deletePrope
 
 router.put("/updateSold", postPropertyControllers.updateSold);      // Update sold field open/sold.
 
+router.post("/addRequests", postPropertyControllers.addRequests);      // Add a Request message enquired by client.
+
+router.post("/fetchRequests", postPropertyControllers.fetchRequests);      // Fetch all Request message for particular posted property.
+
+router.post("/getRequestedProperties",postPropertyControllers.getRequestedProperties);
+
+router.put("/editPropertyDetails", postPropertyControllers.editPropertyDetails);   //Update property details based on property id.
+
+router.delete("/deleteProperty", postPropertyControllers.deleteProperty);   //Delete property details based on property id.
+
 module.exports = router;

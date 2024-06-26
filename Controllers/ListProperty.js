@@ -33,10 +33,11 @@ const getPropertyById = async(req,res)=>{
 }
 
 
+
 // Export all the controllers.
 const listPropertyControllers = {
     getAllProperties,
-    getPropertyById
+    getPropertyById,
 }
 
 module.exports = listPropertyControllers;

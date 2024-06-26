@@ -8,7 +8,7 @@ const jwtSecretKey = "MY_JWT_SECRET_KEYECOMM123";
 const validateUser = async (req, res, next) => {
 
   const headers = req.headers;
-  const tokenFromHeaders = headers.authorization
+  const tokenFromHeaders = headers.authorization;
   // const tokenFromHeaders = headers.authorization.replace(/^Bearer\s+/, '');;
   /**
    * Points to be validated in token
