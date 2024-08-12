@@ -6,6 +6,7 @@ const postPropertyRoutes = require("./Routes/PostProperty");
 const validateUser = require("./Middlewares/auth");
 const listPropertyRoutes = require("./Routes/ListProperty");
 const path = require("path");
+const chatBotRoutes = require("./Routes/Bot");
 
 
 const app = express();
@@ -14,7 +15,6 @@ app.use(express.json());
 
 // Use the CORS middleware
 app.use(cors({
-    // origin: 'https://fullstack-ecomm-frontend-app.vercel.app', // Replace with the origin you want to allow
     // origin : "http://localhost:3000",
     origin : "https://real-estate-fullstack-frontend-app.vercel.app",
     methods : ["GET", "POST", "PUT", "DELETE"],
@@ -30,7 +30,9 @@ app.use(authRoutes);
 app.use('/filesUploaded', express.static(path.join(__dirname, 'filesUploaded')));
 
 app.use(listPropertyRoutes);        //Here sequence matters we cant write this line below "app.use(validateUser,postPropertyRoutes); because of middleware"
+app.use(chatBotRoutes);
 app.use(validateUser,postPropertyRoutes);
+
 
 // DB Connection
 // mongoose.connect("mongodb://localhost:27017/realEstateApp")
