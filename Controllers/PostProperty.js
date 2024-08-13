@@ -3,6 +3,11 @@ const multer = require("multer");
 const propertyModel = require("../Models/PostProperty");
 const User = require("../Models/auth");
 
+const express = require("express");
+const app = express();
+// app.use(express.urlencoded());
+const nodemailer = require('nodemailer');
+
 const uploadDirePath = path.join(__dirname, "..", "filesUploaded");
 
 // console.log(uploadDirePath);
@@ -266,6 +271,53 @@ const deleteProperty = async (req,res)=>{
 }
 
 
+const sendMail = async (req,res)=>{
+    try{
+        const response = await propertyModel.findById(req.body.propertyId).select("userId").populate("userId");
+        // console.log("Response is : ",response.userId.email);
+
+        // Create a transporter using SMTP
+        const transporter = nodemailer.createTransport({
+            service : "Gmail",
+            auth :{
+                user : process.env.EMAIL,
+                pass : process.env.PASSWORD
+            }
+        });
+
+        // Email options
+        const mailOptions = {   
+            from: process.env.EMAIL,
+            to: response.userId.email,
+            subject: "Customer Requested the Property",
+            text: req.body.messages
+        };
+
+        // Send email
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+            console.error('Error sending email:', error);
+            res.status(500).send('Error sending email');
+            } else {
+            console.log('Email sent:', info.response);
+            res.send('Email sent successfully');
+            }
+        });
+        res.json({
+            status : true,
+            message : "Email has been sent successfully"
+        })
+
+    }
+    catch(error){
+        console.log("Error while sending the mail !",error);
+        res.json({
+            status : false,
+            message : "Error while sending the mail !"
+        });
+    }
+}
+
 // Export all the controllers.
 const postPropertyControllers = {
     postProperty,
@@ -276,7 +328,8 @@ const postPropertyControllers = {
     fetchRequests,
     getRequestedProperties,
     editPropertyDetails,
-    deleteProperty
+    deleteProperty,
+    sendMail
 }
 
 module.exports = postPropertyControllers;

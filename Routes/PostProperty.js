@@ -20,4 +20,6 @@ router.put("/editPropertyDetails", postPropertyControllers.editPropertyDetails);
 
 router.delete("/deleteProperty", postPropertyControllers.deleteProperty);   //Delete property details based on property id.
 
+router.post("/sendMail",postPropertyControllers.sendMail);
+
 module.exports = router;

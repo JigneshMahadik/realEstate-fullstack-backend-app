@@ -49,6 +49,7 @@ const Login = async (req,res)=>{
     const payload = {
       user: user._id,
       name: user.first_name,
+      email : user.email,
       exp: tokenExpiry,
     };
     const token = jwt.sign(payload,jwtSecretKey);
