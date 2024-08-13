@@ -10,6 +10,9 @@ const chat = async (req, res) => {
         const api_key = process.env.OPENAI_API_KEY;
         const resp = await axios({url:`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${api_key}`,
             method : "post",
+            headers: {
+                'Content-Type': 'application/json'
+            },
             data :{
                 contents : [
                     {
