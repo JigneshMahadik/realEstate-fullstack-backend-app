@@ -27,12 +27,11 @@ app.use(cors({
 
 
 app.use(authRoutes);
-app.use(chatBotRoutes);
 // Serve static files from the "filesUploaded" directory
 app.use('/filesUploaded', express.static(path.join(__dirname, 'filesUploaded')));
 
 app.use(listPropertyRoutes);        //Here sequence matters we cant write this line below "app.use(validateUser,postPropertyRoutes); because of middleware"
-
+app.use(chatBotRoutes);
 app.use(validateUser,postPropertyRoutes);
 
 
