@@ -19,7 +19,7 @@ app.use(cors({
     // origin : "http://localhost:3000",
     origin : "https://real-estate-fullstack-frontend-app.vercel.app",
     methods : ["GET", "POST", "PUT", "DELETE"],
-    // credentials : true,
+    credentials : true,
     allowedHeaders: 'Content-Type,Authorization',
     // optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 }));
@@ -37,7 +37,7 @@ app.use(validateUser,postPropertyRoutes);
 
 // DB Connection
 // mongoose.connect("mongodb://localhost:27017/realEstateApp")
-mongoose.connect("mongodb+srv://jignesh:dUaszhl26B0rpW0f@cluster0.s7hzif4.mongodb.net")
+mongoose.connect("mongodb+srv://jignesh:dUaszhl26B0rpW0f@cluster0.s7hzif4.mongodb.net/")
 .then(()=>{ console.log("DB Connection Successful"); })
 .catch((error)=>{ console.log("Error while DB Connection !", error); })
 
