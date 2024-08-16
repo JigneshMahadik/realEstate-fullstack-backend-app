@@ -41,6 +41,7 @@ const postProperty = (req,res)=>{
         
         try {
             const fileData = req.files.map(file => file.path);
+            console.log("uploaded files are :",fileData);
 
             const data = new propertyModel({
                 property_type : req.body.property_type,
