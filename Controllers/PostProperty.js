@@ -57,7 +57,7 @@ const postProperty = (req,res)=>{
                 area : req.body.area,
                 other_details : req.body.other_details,
                 // files : fileData,
-                files : req.body.files,
+                files : req.body.files.path,
                 userId : req.user._id
             });
             
