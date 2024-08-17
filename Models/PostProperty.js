@@ -49,8 +49,12 @@ const propertySchema = new mongoose.Schema({
         type : String,
         required : false
     },
+    // files : {
+    //     type : [String],
+    //     required : false,
+    // },
     files : {
-        type : [String],
+        type : String,
         required : false,
     },
     userId : {

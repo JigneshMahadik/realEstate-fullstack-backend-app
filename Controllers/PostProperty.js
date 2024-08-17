@@ -24,13 +24,13 @@ const storage = multer.diskStorage({
     
 const upload = multer({
     storage : storage
-}).array("files");
+}).single("files");
 
 
 
 // Create a new post in DB.
 const postProperty = (req,res)=>{
-    // console.log("beds are",req.body.beds);
+    console.log("beds are",req.body);
     upload(req,res,async(error)=>{
         if(error){
             res.json({
@@ -40,9 +40,9 @@ const postProperty = (req,res)=>{
         }
         
         try {
-            const fileData = req.files.map(file => file.path);
-            console.log("uploaded files are :",fileData);
-
+            // const fileData = req.files.map(file => file.path);
+            // console.log("uploaded files are :",fileData);
+ 
             const data = new propertyModel({
                 property_type : req.body.property_type,
                 transaction_type : req.body.transaction_type,
@@ -56,7 +56,8 @@ const postProperty = (req,res)=>{
                 furnishing : req.body.furnishing,
                 area : req.body.area,
                 other_details : req.body.other_details,
-                files : fileData,
+                // files : fileData,
+                files : req.body.files,
                 userId : req.user._id
             });
             
