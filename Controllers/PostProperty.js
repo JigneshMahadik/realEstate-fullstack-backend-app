@@ -7,15 +7,10 @@ const express = require("express");
 const app = express();
 // app.use(express.urlencoded());
 const nodemailer = require('nodemailer');
-const fs = require('fs');
-
 
 const uploadDirePath = path.join(__dirname, "..", "filesUploaded");
-// console.log(uploadDirePath);
 
-if (!fs.existsSync(uploadDirePath)) {
-    fs.mkdirSync(uploadDirePath, { recursive: true });
-}
+// console.log(uploadDirePath);
 
 const storage = multer.diskStorage({
     destination : (req,file, cb)=>{
@@ -26,9 +21,7 @@ const storage = multer.diskStorage({
         cb(null, fileName);
     }
 });
-// 13.228.225.19
-// 18.142.128.26
-// 54.254.162.138
+    
 const upload = multer({
     storage : storage
 }).array("files");
@@ -48,7 +41,7 @@ const postProperty = (req,res)=>{
         
         try {
             const fileData = req.files.map(file => file.path);
-            // console.log("uploaded files are :",fileData);
+            console.log("uploaded files are :",fileData);
  
             const data = new propertyModel({
                 property_type : req.body.property_type,
