@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
     
 const upload = multer({
     storage : storage
-}).single("files");
+}).array("files");
 
 
 
@@ -40,8 +40,8 @@ const postProperty = (req,res)=>{
         }
         
         try {
-            // const fileData = req.files.map(file => file.path);
-            // console.log("uploaded files are :",fileData);
+            const fileData = req.files.map(file => file.originalname);
+            console.log("uploaded files are :",fileData);
  
             const data = new propertyModel({
                 property_type : req.body.property_type,
@@ -56,8 +56,7 @@ const postProperty = (req,res)=>{
                 furnishing : req.body.furnishing,
                 area : req.body.area,
                 other_details : req.body.other_details,
-                // files : fileData,
-                files : req.body.files.path,
+                files : fileData,
                 userId : req.user._id
             });
             
