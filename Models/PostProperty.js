@@ -60,7 +60,7 @@ const propertySchema = new mongoose.Schema({
     sold : {
         type : String,
         default : "open",
-        // required : true
+        required : true
     },
     requests : [
         {
