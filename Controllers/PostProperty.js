@@ -8,29 +8,46 @@ const app = express();
 // app.use(express.urlencoded());
 const nodemailer = require('nodemailer');
 
-const uploadDirePath = path.join(__dirname, "..", "filesUploaded");
+require('dotenv').config();
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+
+// const uploadDirePath = path.join(__dirname, "..", "filesUploaded");
 
 // console.log(uploadDirePath);
 
-const storage = multer.diskStorage({
-    destination : (req,file, cb)=>{
-        cb(null, uploadDirePath);
-    },
-    filename : (req,file,cb)=>{
-        const fileName = file.originalname;
-        cb(null, fileName);
+// const storage = multer.diskStorage({
+//     destination : (req,file, cb)=>{
+//         cb(null, uploadDirePath);
+//     },
+//     filename : (req,file,cb)=>{
+//         const fileName = file.originalname;
+//         cb(null, fileName);
+//     }
+// });
+    
+// const upload = multer({
+//     storage : storage
+// }).array("files");
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: "cloudinary_real_estate", // Folder where images will be stored
+        allowed_formats: ["jpg", "png", "jpeg"]
     }
 });
-    
-const upload = multer({
-    storage : storage
-}).array("files");
 
-
+const upload = multer({ storage: storage }).array("files");
 
 // Create a new post in DB.
 const postProperty = (req,res)=>{
-    console.log("beds are",req.body);
     upload(req,res,async(error)=>{
         if(error){
             res.json({
@@ -41,8 +58,7 @@ const postProperty = (req,res)=>{
         
         try {
             const fileData = req.files.map(file => file.path);
-            console.log("uploaded files are :",fileData);
- 
+            
             const data = new propertyModel({
                 property_type : req.body.property_type,
                 transaction_type : req.body.transaction_type,
